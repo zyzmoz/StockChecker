@@ -1,14 +1,56 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Ionic Blank
-    </ion-title>
+      Stock Market
+    </ion-title>  
+    <ion-buttons end>
+      <button ion-button icon-only>
+        <ion-icon name="chatboxes"></ion-icon>
+      </button>
+      <button ion-button icon-only>
+        <ion-icon name="more"></ion-icon>
+      </button>
+    </ion-buttons>    
   </ion-navbar>
+  <ion-segment [(ngModel)]="view">
+    <ion-segment-button value="watching">
+      Watching
+    </ion-segment-button>
+    <ion-segment-button value="trending">
+      Trending
+    </ion-segment-button>
+  </ion-segment>
 </ion-header>
+<ion-content>
 
-<ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+  <div *ngIf="view === 'trending'">
+    <ion-list>
+      <ion-item *ngFor="let stock of stockList" (click)="viewStock(stock.symbol)">
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <b>{{stock.symbol}}</b>
+            </ion-col>
+            <ion-col text-right>
+              <b>{{stock.delayedPrice.toFixed(2)}}</b>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col col-6>
+              {{stock.companyName}}
+            </ion-col>
+            <ion-col text-right col-6 [ngClass]="{low: (stock.change < 0), high: (stock.change > 0)}">
+              {{stock.change}}({{stock.changePercent.toFixed(3)}}%)
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+      </ion-item>
+    </ion-list>
+  </div>
+
+  <div *ngIf="view === 'watching'">
+    <h1>Watching</h1>
+  </div>
+
 </ion-content>

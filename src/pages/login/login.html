@@ -1,0 +1,22 @@
+<ion-content padding ion-fixed>
+  <img src="assets/imgs/stocks.png" width="80" height="80"/>
+  <h3>Stock Checker</h3>
+
+  <ion-list >
+    <ion-item>
+      <ion-label>Email</ion-label>
+      <ion-input [(ngModel)]="data.email" type="text"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Password</ion-label>
+      <ion-input [(ngModel)]="data.password" type="password"></ion-input>
+    </ion-item>
+  </ion-list>
+  <p class="message" >{{data.message}}</p>
+  
+  <button (click)="login()"
+    [disabled]="data.email === '' || data.password === ''" ion-button block>Login</button>
+  <button ion-button block color="secondary">Create Account</button>
+
+</ion-content>

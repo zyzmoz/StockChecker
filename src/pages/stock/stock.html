@@ -1,0 +1,50 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title *ngIf="stock">{{stock.companyName}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content >
+  <div *ngIf="stock">
+    <ion-grid>
+      <ion-row>
+        <ion-col >
+           {{stock.companyName}}
+          <h2 style="margin: 0;">{{stock.delayedPrice.toFixed(2)}}</h2>
+          <p style="margin: 0;" [ngClass]="{low: (stock.change < 0), high: (stock.change> 0)}">
+            {{stock.change}}({{stock.changePercent.toFixed(3)}}%)
+          </p>
+        </ion-col>
+        <ion-col text-right>
+          {{ watching }} watching
+          <br/>
+          <button ion-button color="secondary">
+            Watch
+          </button>          
+        </ion-col>
+      </ion-row>
+    </ion-grid> 
+    <ion-segment [(ngModel)]="graph">
+      <ion-segment-button value="price">                   
+        Price        
+      </ion-segment-button>
+      <!-- <ion-segment-button value="sentiment">        
+        Sentiment
+      </ion-segment-button> -->
+      <ion-segment-button value="msg_vol">        
+        Trades
+        <!-- MSG VOL -->
+      </ion-segment-button>      
+    </ion-segment>  
+    
+    <canvas [hidden]="graph != 'price'" #price></canvas>
+
+    <canvas [hidden]="graph != 'sentiment'" #sentiment></canvas>
+
+    <canvas [hidden]="graph != 'msg_vol'" #msg></canvas>
+  </div>
+
+</ion-content>
