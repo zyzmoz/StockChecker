@@ -17,6 +17,7 @@
   
   <button (click)="login()"
     [disabled]="data.email === '' || data.password === ''" ion-button block>Login</button>
-  <button ion-button block color="secondary">Create Account</button>
+  <button (click)="register()"
+    ion-button block color="secondary">Create Account</button>
 
 </ion-content>

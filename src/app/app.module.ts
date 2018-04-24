@@ -11,10 +11,14 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { StockPage } from '../pages/stock/stock';
 import { LoginPage } from '../pages/login/login';
+import { SignUpPage } from '../pages/sign-up/sign-up';
 import { StocksProvider } from '../providers/stocks/stocks';
+
+import { VerifyAccountComponent } from '../components/verify-account/verify-account';
 
 import * as firebase from  'firebase';
 import { UserProvider } from '../providers/user/user';
+import { AuthProvider } from '../providers/auth/auth';
 const config = {
   apiKey: "AIzaSyDPvkprbfclAvxw8sf7fhK2JZJ8ZrwjPsM",
   authDomain: "stockchecker-17203.firebaseapp.com",
@@ -32,7 +36,11 @@ firebase.initializeApp(config);
     MyApp,
     HomePage,
     StockPage,
-    LoginPage
+    LoginPage,
+    SignUpPage,
+    VerifyAccountComponent
+    
+    
   ],
   imports: [
     BrowserModule,
@@ -45,14 +53,17 @@ firebase.initializeApp(config);
     MyApp,
     HomePage,
     StockPage,
-    LoginPage
+    LoginPage,
+    SignUpPage,
+    VerifyAccountComponent
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     StocksProvider,
-    UserProvider
+    UserProvider,
+    AuthProvider
   ]
 })
 export class AppModule {}

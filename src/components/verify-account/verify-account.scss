@@ -1,11 +1,14 @@
-page-sign-up {
+verify-account {
+  
   
   display: block;
   overflow-y: hidden;
-  .scroll-content {
+  div {
     background-color: #000 !important;
     color: #f2f2f2;
     text-align: center;
+    padding: 8px;
+    height: 100%;
     
   }
 
@@ -15,10 +18,7 @@ page-sign-up {
     border-radius: 20px;
   }
 
-  .list {
-    //margin-top: 27%;
-  }
-
+  
   .item {
     margin-bottom: 8px;
     border-radius: 2px;
@@ -32,6 +32,8 @@ page-sign-up {
     color: #f53d3d;
   }
 }
+
+
 
 
 

@@ -1,24 +1,38 @@
 import { Component } from '@angular/core';
-import {  NavController, NavParams } from 'ionic-angular';
-
-/**
- * Generated class for the SignUpPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import {  NavController } from 'ionic-angular';
+import * as firebase from 'firebase';
 
 @Component({
   selector: 'page-sign-up',
   templateUrl: 'sign-up.html',
 })
 export class SignUpPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  data: any = {
+    name: '',
+    email: '',
+    password1: '',
+    password2: '',
+    message: ''
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad SignUpPage');
+  constructor(public navCtrl: NavController) {
   }
+
+  signUpWithEmailAndPassword = () => {
+    firebase.auth().createUserWithEmailAndPassword(this.data.email, this.data.password1)
+      .then(res => {
+        firebase.auth().currentUser.sendEmailVerification().then((res) => {
+          console.log(res);
+          
+          this.navCtrl.pop();
+        });               
+      })
+      .catch(err => {
+        console.log(err);  
+        this.data.message = err.message;      
+      });
+  }
+
+  
 
 }
