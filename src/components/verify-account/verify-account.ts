@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ViewController } from 'ionic-angular';
-import * as firebase from 'firebase';
+import firebase from 'firebase';
 
 
 @Component({
@@ -18,7 +18,13 @@ export class VerifyAccountComponent {
    
   }
 
-  verify = () => {    
+  verify = () => {  
+
+    firebase.auth().onIdTokenChanged(data => {
+      console.log(data);
+      
+            
+    });  
 
   }
 

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {  NavController } from 'ionic-angular';
-import * as firebase from 'firebase';
+import { AuthProvider } from '../../providers/auth/auth';
+
 
 @Component({
   selector: 'page-sign-up',
@@ -15,22 +16,15 @@ export class SignUpPage {
     message: ''
   }
 
-  constructor(public navCtrl: NavController) {
+  constructor(public navCtrl: NavController, private authProvider: AuthProvider) {
   }
 
   signUpWithEmailAndPassword = () => {
-    firebase.auth().createUserWithEmailAndPassword(this.data.email, this.data.password1)
-      .then(res => {
-        firebase.auth().currentUser.sendEmailVerification().then((res) => {
-          console.log(res);
-          
-          this.navCtrl.pop();
-        });               
-      })
-      .catch(err => {
-        console.log(err);  
-        this.data.message = err.message;      
-      });
+    this.authProvider.signUpWithEmail(this.data).then((res) =>{
+      this.navCtrl.pop();
+    }).catch((err) => {
+      this.data.message = err.message;
+    });    
   }
 
   

@@ -120,9 +120,6 @@ export class StockPage {
 
     });
 
-
-
-
   }
 
   ionViewWillEnter = () => {
@@ -133,6 +130,11 @@ export class StockPage {
 
     });
 
+  }
+
+
+  watch = (stock) => {
+    this.stocksProvider.watchStock(stock);
   }
 
 }
