@@ -2,7 +2,7 @@
   <ion-navbar>
     <ion-title>
       Stock Market
-    </ion-title>  
+    </ion-title>
     <ion-buttons end>
       <button ion-button icon-only>
         <ion-icon name="chatboxes"></ion-icon>
@@ -10,7 +10,7 @@
       <button ion-button icon-only>
         <ion-icon name="more"></ion-icon>
       </button>
-    </ion-buttons>    
+    </ion-buttons>
   </ion-navbar>
   <ion-segment [(ngModel)]="view">
     <ion-segment-button value="watching">
@@ -22,36 +22,37 @@
   </ion-segment>
 </ion-header>
 <ion-content>
+  <div [ngSwitch]="view">
 
-  <div *ngIf="view == 'trending'">
-    <ion-list>
-      <ion-item *ngFor="let stock of stockList" (click)="viewStock(stock.symbol)">
-        <ion-grid>
-          <ion-row>
-            <ion-col>
-              <b>{{stock.symbol}}</b>
-            </ion-col>
-            <ion-col text-right>
-              <b>{{stock.delayedPrice.toFixed(2)}}</b>
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col col-6>
-              {{stock.companyName}}
-            </ion-col>
-            <ion-col text-right col-6 [ngClass]="{low: (stock.change < 0), high: (stock.change > 0)}">
-              {{stock.change}}({{stock.changePercent.toFixed(3)}}%)
-            </ion-col>
-          </ion-row>
-        </ion-grid>
+    <div *ngSwitchCase="'trending'">
+      <ion-list>
+        <ion-item *ngFor="let stock of stockList" (click)="viewStock(stock.symbol)">
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                <b>{{stock.symbol}}</b>
+              </ion-col>
+              <ion-col text-right>
+                <b>{{stock.delayedPrice.toFixed(2)}}</b>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col col-6>
+                {{stock.companyName}}
+              </ion-col>
+              <ion-col text-right col-6 [ngClass]="{low: (stock.change < 0), high: (stock.change > 0)}">
+                {{stock.change}}({{stock.changePercent.toFixed(3)}}%)
+              </ion-col>
+            </ion-row>
+          </ion-grid>
 
-      </ion-item>
-    </ion-list>
+        </ion-item>
+      </ion-list>
+    </div>
+
+
+    <div *ngSwitchCase="'watching'">
+      <h1>Watching</h1>
+    </div>
   </div>
-  {{view}}
-
-  <div *ngIf="view == 'watching'">
-    <h1>Watching</h1>
-  </div>
-
 </ion-content>
