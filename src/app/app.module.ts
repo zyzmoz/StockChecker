@@ -5,7 +5,7 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 
-import { AngularFireModule } from 'angularfire2';
+// import { AngularFireModule } from 'angularfire2';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -16,7 +16,7 @@ import { StocksProvider } from '../providers/stocks/stocks';
 
 import { VerifyAccountComponent } from '../components/verify-account/verify-account';
 
-import * as firebase from  'firebase';
+import firebase from  'firebase';
 import { UserProvider } from '../providers/user/user';
 import { AuthProvider } from '../providers/auth/auth';
 const config = {
@@ -45,7 +45,7 @@ firebase.initializeApp(config);
   imports: [
     BrowserModule,
     HttpClientModule,
-    AngularFireModule.initializeApp(config, 'myApp'),
+    // AngularFireModule.initializeApp(config, 'myApp'),
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],

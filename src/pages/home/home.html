@@ -23,7 +23,7 @@
 </ion-header>
 <ion-content>
 
-  <div *ngIf="view === 'trending'">
+  <div *ngIf="view == 'trending'">
     <ion-list>
       <ion-item *ngFor="let stock of stockList" (click)="viewStock(stock.symbol)">
         <ion-grid>
@@ -48,8 +48,9 @@
       </ion-item>
     </ion-list>
   </div>
+  {{view}}
 
-  <div *ngIf="view === 'watching'">
+  <div *ngIf="view == 'watching'">
     <h1>Watching</h1>
   </div>
 
