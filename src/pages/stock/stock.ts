@@ -1,6 +1,7 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { StocksProvider } from '../../providers/stocks/stocks';
+import { UserProvider } from '../../providers/user/user';
 import { Chart } from 'chart.js';
 
 @Component({
@@ -14,7 +15,10 @@ export class StockPage {
 
   lineChart: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private stocksProvider: StocksProvider) {
+  constructor(public navCtrl: NavController, 
+              public navParams: NavParams, 
+              private stocksProvider: StocksProvider,
+              private userProvider: UserProvider) {
   }
 
   private stock: any;
@@ -22,6 +26,8 @@ export class StockPage {
   private stockId: string;
   watching = Math.floor((Math.random() * 10000) + 1);
   graph: string = 'price';
+  isWatching: any;
+  
 
   ionViewDidEnter() {
 
@@ -122,19 +128,41 @@ export class StockPage {
 
   }
 
-  ionViewWillEnter = () => {
+  ionViewWillEnter = ()  =>{
     this.stockId = this.navParams.get('stock');
     this.stocksProvider.getQuote(this.stockId).subscribe(res => {
       this.stock = res;
 
 
     });
+    this.userProvider.isWatching(this.stockId).then(res => {
+      this.isWatching = res;
+    });
+    
+    
+    
 
   }
 
 
   watch = (stock) => {
-    this.stocksProvider.watchStock(stock);
+    this.stocksProvider.watchStock(stock).then(() => {
+      this.userProvider.isWatching(this.stockId).then(res => {
+        this.isWatching = res;
+      });
+    });
   }
+
+  unwatch = (stock) => {
+    this.stocksProvider.unwatchStock(stock).then(() => {
+      this.userProvider.isWatching(this.stockId).then(res => {
+        this.isWatching = res;
+      });
+    });;  
+  }
+
+
+
+  
 
 }

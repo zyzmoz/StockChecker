@@ -22,5 +22,4 @@ export class MenuComponent {
     this.viewCtrl.dismiss();
   }
 
-
 }

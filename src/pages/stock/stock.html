@@ -21,9 +21,13 @@
         <ion-col text-right>
           {{ watching }} watching
           <br/>
-          <button (click)="watch(stock)" ion-button color="secondary">
+          <button *ngIf="!isWatching" (click)="watch(stock)" ion-button color="secondary">
             Watch
-          </button>          
+          </button>  
+          <button *ngIf="isWatching" (click)="unwatch(stock)" ion-button color="danger">
+            Unwatch
+          </button>  
+          
         </ion-col>
       </ion-row>
     </ion-grid> 

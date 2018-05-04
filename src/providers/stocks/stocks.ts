@@ -18,47 +18,88 @@ export class StocksProvider {
   }
 
   listStocks = () => {
-    
-    return this.http.get(this.url + 'market/list/mostactive').map((res) => 
+
+    return this.http.get(this.url + 'market/list/mostactive').map((res) =>
       res
     )
   }
 
   getQuote = (str) => {
-    return this.http.get(this.url + str+'/quote').map((res) =>
+    return this.http.get(this.url + str + '/quote').map((res) =>
       res
     )
+  }
+
+  getWatching = () => {
+    console.log('Watching');
+    
+    return new Promise((resolve, reject) => {
+      const currentUser = firebase.auth().currentUser.uid;
+      let promises: any;
+      firebase.database().ref('accounts/' + currentUser).once('value').then((user) => {
+        var watching: any = user.val().watching;
+
+        if (watching) {
+          promises = watching.map(symbol => {
+            return new Promise((resolve, reject) => {
+              this.http.get(this.url + symbol + '/quote').subscribe((res) => {
+                console.log(res);
+                resolve(res);
+              });
+
+            });
+          });
+
+          Promise.all(promises).then((results) => {
+            console.log(results);
+            resolve(results);
+          });
+        }
+      });
+    });
+
   }
 
   getChart = (str) => {
     const params = new HttpParams;
     params.append('chartInterval', '10');
-    return this.http.get(this.url + str + '/chart/1d?chartInterval=10', {params: params }).map((res) =>
+    return this.http.get(this.url + str + '/chart/1d?chartInterval=10', { params: params }).map((res) =>
       res
     )
   }
 
-  watchStock = (stock) => {
+  watchStock(stock) {
     const currentUser = firebase.auth().currentUser.uid;
-    firebase.database().ref('accounts/' + currentUser).once('value').then((user) => {
-      var watching : any = user.val().watching;
-      console.log(watching);  
-      if (!watching){
+    return firebase.database().ref('accounts/' + currentUser).once('value').then((user) => {
+      var watching: any = user.val().watching;
+      console.log(watching);
+      if (!watching) {
         watching = [stock.symbol];
       } else {
         if (watching.indexOf(stock.symbol) === -1)
-          watching = [...watching, stock.symbol];          
+          watching = [...watching, stock.symbol];
       }
 
       firebase.database().ref('accounts/' + currentUser).update({
         watching: watching
       })
-          
+
     });
 
-  } 
+  }
 
   unwatchStock = (stock) => {
+    const currentUser = firebase.auth().currentUser.uid;
+    return firebase.database().ref('accounts/' + currentUser).once('value').then((user) => {
+      var watching: any = user.val().watching;
+      console.log(watching);      
+      watching.splice(watching.indexOf(stock.symbol), 1);
+      console.log(watching);   
+      firebase.database().ref('accounts/' + currentUser).update({
+        watching: watching
+      })
+
+    });
 
   }
 
