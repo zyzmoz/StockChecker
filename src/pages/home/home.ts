@@ -37,9 +37,12 @@ export class HomePage {
     this.navCtrl.push(StockPage, { stock : str});
   }
 
-  viewMenu = () => {
+  viewMenu = (event) => {
+    
     let menu = this.popoverCtrl.create(MenuComponent);
-    menu.present();
+    menu.present({
+      ev: event
+    });
   }
 
 }
