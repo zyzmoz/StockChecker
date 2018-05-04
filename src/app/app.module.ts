@@ -14,6 +14,7 @@ import { LoginPage } from '../pages/login/login';
 import { SignUpPage } from '../pages/sign-up/sign-up';
 import { StocksProvider } from '../providers/stocks/stocks';
 
+import { MenuComponent } from '../components/menu/menu';
 import { VerifyAccountComponent } from '../components/verify-account/verify-account';
 
 import firebase from  'firebase';
@@ -37,14 +38,17 @@ firebase.initializeApp(config);
     HomePage,
     StockPage,
     LoginPage,
-    SignUpPage,
+    SignUpPage,  
+    MenuComponent,  
+    
     VerifyAccountComponent
     
     
   ],
   imports: [
     BrowserModule,
-    HttpClientModule,
+    HttpClientModule,  
+      
     // AngularFireModule.initializeApp(config, 'myApp'),
     IonicModule.forRoot(MyApp)
   ],
@@ -55,7 +59,10 @@ firebase.initializeApp(config);
     StockPage,
     LoginPage,
     SignUpPage,
+    MenuComponent,
+    
     VerifyAccountComponent
+    
   ],
   providers: [
     StatusBar,

@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, PopoverController } from 'ionic-angular';
 import { StocksProvider } from '../../providers/stocks/stocks';
 import { StockPage } from '../stock/stock';
+import { MenuComponent } from '../../components/menu/menu';
+
 
 @Component({
   selector: 'page-home',
@@ -12,7 +14,9 @@ export class HomePage {
   view: string = 'trending';
   stockList : any[] = [];
 
-  constructor(public navCtrl: NavController, private stockProvider : StocksProvider) {
+  constructor(public navCtrl: NavController, 
+              private stockProvider : StocksProvider,
+              private popoverCtrl : PopoverController) {
 
   }
 
@@ -26,6 +30,11 @@ export class HomePage {
 
   viewStock = (str) => {
     this.navCtrl.push(StockPage, { stock : str});
+  }
+
+  viewMenu = () => {
+    let menu = this.popoverCtrl.create(MenuComponent);
+    menu.present();
   }
 
 }
