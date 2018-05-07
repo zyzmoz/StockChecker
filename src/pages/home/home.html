@@ -22,7 +22,9 @@
   </ion-segment>
 </ion-header>
 <ion-content>
+
   <div [ngSwitch]="view">
+
 
     <div *ngSwitchCase="'trending'">
       <ion-list>
@@ -51,7 +53,7 @@
     </div>
 
 
-    <div *ngSwitchCase="'watching'">      
+    <div *ngSwitchCase="'watching'">
       <ion-list>
         <ion-item *ngFor="let stock of watchingList" (click)="viewStock(stock.symbol)">
           <ion-grid>
