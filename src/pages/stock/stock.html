@@ -7,12 +7,12 @@
 </ion-header>
 
 
-<ion-content >
-  <div *ngIf="stock">
+<ion-content>
+  <div *ngIf="stock" class="fixed">
     <ion-grid>
       <ion-row>
-        <ion-col >
-           {{stock.companyName}}
+        <ion-col>
+          {{stock.companyName}}
           <h2 style="margin: 0;">{{stock.delayedPrice.toFixed(2)}}</h2>
           <p style="margin: 0;" [ngClass]="{low: (stock.change < 0), high: (stock.change> 0)}">
             {{stock.change}}({{stock.changePercent.toFixed(3)}}%)
@@ -23,32 +23,49 @@
           <br/>
           <button *ngIf="!isWatching" (click)="watch(stock)" ion-button color="secondary">
             Watch
-          </button>  
+          </button>
           <button *ngIf="isWatching" (click)="unwatch(stock)" ion-button color="danger">
             Unwatch
-          </button>  
-          
+          </button>
+
         </ion-col>
       </ion-row>
-    </ion-grid> 
+    </ion-grid>
     <ion-segment [(ngModel)]="graph">
-      <ion-segment-button value="price">                   
-        Price        
+      <ion-segment-button value="price">
+        Price
       </ion-segment-button>
       <!-- <ion-segment-button value="sentiment">        
         Sentiment
       </ion-segment-button> -->
-      <ion-segment-button value="msg_vol">        
+      <ion-segment-button value="msg_vol">
         Trades
         <!-- MSG VOL -->
-      </ion-segment-button>      
-    </ion-segment>  
-    
-    <canvas [hidden]="graph != 'price'" #price></canvas>
+      </ion-segment-button>
+    </ion-segment>
 
-    <canvas [hidden]="graph != 'sentiment'" #sentiment></canvas>
+    <canvas [hidden]="graph != 'price'" #price width="180"></canvas>
 
-    <canvas [hidden]="graph != 'msg_vol'" #msg></canvas>
+    <canvas [hidden]="graph != 'sentiment'" #sentiment width="180"></canvas>
+
+    <canvas [hidden]="graph != 'msg_vol'" #msg width="180"></canvas>
+  </div>
+  <div class="comments" padding>
+    <ion-list *ngIf="comments">
+      <ion-item *ngFor="let comment  of comments"  >
+        <strong>{{comment.user}}</strong>
+        <p>{{comment.message}}</p>
+      </ion-item>
+    </ion-list>
+    <h3 *ngIf="!comments" text-center>No Comments yet!</h3>
   </div>
 
 </ion-content>
+<ion-footer>
+  <ion-item>    
+    <ion-input [(ngModel)]="message" type="text" placeholder="Leave a comment" ></ion-input>
+    <button (click)="sendComment()" ion-button ion-only clear item-right>
+      <ion-icon name="send"></ion-icon>
+    </button>
+  </ion-item>
+</ion-footer>

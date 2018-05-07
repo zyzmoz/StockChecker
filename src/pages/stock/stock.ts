@@ -3,6 +3,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import { StocksProvider } from '../../providers/stocks/stocks';
 import { UserProvider } from '../../providers/user/user';
 import { Chart } from 'chart.js';
+import firebase from 'firebase';
 
 @Component({
   selector: 'page-stock',
@@ -14,7 +15,7 @@ export class StockPage {
   @ViewChild('msg') msg: any;
 
   lineChart: any;
-
+  message:String = ''; 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams, 
               private stocksProvider: StocksProvider,
@@ -24,6 +25,7 @@ export class StockPage {
   private stock: any;
   private stockChart: any;
   private stockId: string;
+  comments: any[];
   watching = Math.floor((Math.random() * 10000) + 1);
   graph: string = 'price';
   isWatching: any;
@@ -43,11 +45,11 @@ export class StockPage {
         data.lines.push(element.marketAverage);
         data.trades.push(element.marketNumberOfTrades);
       });
-      //marketNumberOfTrades
+      //marketNumberOfTrades      
       
       this.lineChart = new Chart(this.price.nativeElement, {
-        type: 'line',
-        options: {
+        type: 'line',        
+        options: {        
           legend: {
             display: false
           },
@@ -125,6 +127,7 @@ export class StockPage {
 
 
     });
+    
 
   }
 
@@ -159,6 +162,20 @@ export class StockPage {
         this.isWatching = res;
       });
     });;  
+  }
+
+  sendComment = () => {    
+    const currentUser = firebase.auth().currentUser.uid;
+    const { name } = this.userProvider.user;
+    if (this.comments){
+      this.comments.push({user: name, sentBy: currentUser, message: this.message});
+    } else {
+      this.comments = [{user: name, sentBy: currentUser, message: this.message}];
+
+    }
+    this.message = '';
+
+
   }
 
 

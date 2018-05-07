@@ -6,7 +6,13 @@ import firebase from 'firebase';
 @Injectable()
 export class UserProvider {
 
+  user: any;
+
   constructor(public http: HttpClient) {
+    const currentUser = firebase.auth().currentUser.uid;
+    firebase.database().ref('accounts/' + currentUser).once('value').then((user) => {
+      this.user = user.val();
+    });
 
   }
 

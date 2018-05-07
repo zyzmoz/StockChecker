@@ -1,4 +1,15 @@
 page-stock {
+  .fixed {
+    position: absolute;
+    width: 100%;
+    height: 316px;
+    
+  }
+  .comments {
+    margin-top: 316px ;
+    z-index: 0 !important;
+    
+  }
   .segment-button p {
     padding: 0;
     margin: 0;            
@@ -11,6 +22,8 @@ page-stock {
 
   canvas {
     margin-top: 12px;
+    height: 180px !important;
+    z-index: 0;
   }
 
 }
