@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import "rxjs/add/operator/map";
-import firebase from 'firebase';
+import firebase, { database } from 'firebase';
 
 /*
   Generated class for the StocksProvider provider.
@@ -103,8 +103,38 @@ export class StocksProvider {
 
   }
 
-  postComment = (stock, comment) => {
+  postComment = (symbol, obj) => {
+    const currentUser = firebase.auth().currentUser.uid;
+    firebase.database().ref('stocks/' + symbol +'/comments' ).once('value')
+      .then((stock) => {        
+        let comments: any[] = stock.val();
+        if (comments.length > 0) {
+          comments.unshift(obj);
+        } else {
+          comments = [obj];
+        }
+        console.log(comments);
+        
 
+        firebase.database().ref('stocks/' + symbol  ).update({
+          comments: comments
+        })
+        .then(res => console.log(res))
+        .catch(err => console.error(err));
+
+      });     
   }
+
+  getComments = (symbol) => {    
+    return new Promise((resolve) => {
+      firebase.database().ref('stocks/' + symbol +'/comments' ).once('value')
+        .then(comments => {          
+          
+          resolve(comments.val())
+        });
+    });
+  }
+
+
 
 }

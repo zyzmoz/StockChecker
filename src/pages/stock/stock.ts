@@ -127,6 +127,12 @@ export class StockPage {
 
 
     });
+
+    this.stocksProvider.getComments(this.stock.symbol)
+      .then((res:any[]) => {
+        console.log(res);
+        this.comments = res;
+      });
     
 
   }
@@ -164,13 +170,15 @@ export class StockPage {
     });;  
   }
 
-  sendComment = () => {    
+  sendComment = (symbol) => {    
     const currentUser = firebase.auth().currentUser.uid;
     const { name } = this.userProvider.user;
+    const comment = {user: name, sentBy: currentUser, message: this.message, date: new Date().toUTCString()};
+    this.stocksProvider.postComment(symbol, comment);
     if (this.comments){
-      this.comments.push({user: name, sentBy: currentUser, message: this.message});
+      this.comments.unshift(comment);
     } else {
-      this.comments = [{user: name, sentBy: currentUser, message: this.message}];
+      this.comments = [comment];
 
     }
     this.message = '';

@@ -16,7 +16,7 @@ export class UserProvider {
 
   }
 
-  isWatching(symbol){        
+  isWatching = (symbol) => {        
     return new Promise(resolve => {
       const currentUser = firebase.auth().currentUser.uid;
       firebase.database().ref('accounts/' + currentUser).once('value').then((user) => {
@@ -32,6 +32,8 @@ export class UserProvider {
     });
     
   }
+
+ 
 
 
 

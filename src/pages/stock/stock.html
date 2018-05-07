@@ -55,6 +55,7 @@
       <ion-item *ngFor="let comment  of comments"  >
         <strong>{{comment.user}}</strong>
         <p>{{comment.message}}</p>
+        <h6>{{comment.date}}</h6>
       </ion-item>
     </ion-list>
     <h3 *ngIf="!comments" text-center>No Comments yet!</h3>
@@ -64,7 +65,7 @@
 <ion-footer>
   <ion-item>    
     <ion-input [(ngModel)]="message" type="text" placeholder="Leave a comment" ></ion-input>
-    <button (click)="sendComment()" ion-button ion-only clear item-right>
+    <button (click)="sendComment(stock.symbol)" ion-button ion-only clear item-right>
       <ion-icon name="send"></ion-icon>
     </button>
   </ion-item>
