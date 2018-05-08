@@ -7,12 +7,28 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>profile</ion-title>
+    <ion-title>Profile</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
+  <div *ngIf="user">
+    <ion-list no-lines >
+      <ion-item >        
+        <strong>Name: </strong>{{user.name}}
+        <button (click)="updateName()" ion-button small item-right color="light" icon-left>
+          <ion-icon  name="create"></ion-icon>
+          Edit
+        </button>
+      </ion-item>
+
+      <ion-item >
+          <strong>Email: </strong>{{user.email}}
+        </ion-item>
+    </ion-list>
+    <button (click)="resetPassword()" ion-button block color="danger">Reset Password</button>
+  </div>
 
 </ion-content>

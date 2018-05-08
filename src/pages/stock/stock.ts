@@ -16,10 +16,12 @@ export class StockPage {
 
   lineChart: any;
   message:String = ''; 
+  currentUser: any;
   constructor(public navCtrl: NavController, 
               public navParams: NavParams, 
               private stocksProvider: StocksProvider,
               private userProvider: UserProvider) {
+    this.currentUser = firebase.auth().currentUser.uid;
   }
 
   private stock: any;

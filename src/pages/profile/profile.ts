@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { UserProvider } from '../../providers/user/user';
 
 /**
  * Generated class for the ProfilePage page.
@@ -15,11 +16,20 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class ProfilePage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  user: any;
+  constructor(public navCtrl: NavController, private userProvider : UserProvider) {
+    
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ProfilePage');
+  async ionViewDidLoad() {
+    this.user = await this.userProvider.getUser();    
   }
 
+  updateName = async () => {
+    this.user.name = await this.userProvider.updateName();
+  }
+
+  resetPassword = () => {
+    this.userProvider.resetPassword();
+  }
 }

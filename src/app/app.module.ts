@@ -13,6 +13,7 @@ import { HomePage } from '../pages/home/home';
 import { StockPage } from '../pages/stock/stock';
 import { LoginPage } from '../pages/login/login';
 import { SignUpPage } from '../pages/sign-up/sign-up';
+import { ProfilePage } from '../pages/profile/profile';
 import { StocksProvider } from '../providers/stocks/stocks';
 
 import { MenuComponent } from '../components/menu/menu';
@@ -39,7 +40,8 @@ firebase.initializeApp(config);
     HomePage,
     StockPage,
     LoginPage,
-    SignUpPage,  
+    SignUpPage, 
+    ProfilePage, 
     MenuComponent,  
     
     VerifyAccountComponent
@@ -60,6 +62,7 @@ firebase.initializeApp(config);
     StockPage,
     LoginPage,
     SignUpPage,
+    ProfilePage,
     MenuComponent,
     
     VerifyAccountComponent

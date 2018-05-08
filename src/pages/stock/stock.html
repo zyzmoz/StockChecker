@@ -53,6 +53,9 @@
   <div class="comments" padding>
     <ion-list *ngIf="comments">
       <ion-item *ngFor="let comment  of comments"  >
+        <button *ngIf="comment.sentBy === currentUser" ion-button clear icon-only item-end color="danger">
+          <ion-icon name="trash"></ion-icon>
+        </button>
         <strong>{{comment.user}}</strong>
         <p>{{comment.message}}</p>
         <h6>{{comment.date}}</h6>

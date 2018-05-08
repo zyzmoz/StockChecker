@@ -108,7 +108,7 @@ export class StocksProvider {
     firebase.database().ref('stocks/' + symbol +'/comments' ).once('value')
       .then((stock) => {        
         let comments: any[] = stock.val();
-        if (comments.length > 0) {
+        if (comments && (comments.length > 0)) {
           comments.unshift(obj);
         } else {
           comments = [obj];
