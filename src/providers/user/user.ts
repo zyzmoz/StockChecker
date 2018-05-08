@@ -77,9 +77,9 @@ export class UserProvider {
       const currentUser = firebase.auth().currentUser.uid;
       firebase.database().ref('accounts/' + currentUser).once('value').then((user) => {
         var watching: any = user.val().watching;
-        console.log(watching.indexOf(symbol));
+        
 
-        if (watching.indexOf(symbol) !== -1) {
+        if (watching && (watching.indexOf(symbol) !== -1)) {
           resolve(true);
         } else {
           resolve(false);
