@@ -125,6 +125,10 @@ export class StocksProvider {
       });     
   }
 
+  deleteComment = (id) => {
+        
+  }
+
   getComments = (symbol) => {    
     return new Promise((resolve) => {
       firebase.database().ref('stocks/' + symbol +'/comments' ).once('value')
