@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { App, NavController, ModalController } from 'ionic-angular';
 import firebase from 'firebase';
 import { VerifyAccountComponent } from '../../components/verify-account/verify-account';
-import { HomePage } from '../../pages/home/home';
 
 @Injectable()
 export class AuthProvider {
@@ -15,7 +14,7 @@ export class AuthProvider {
       console.log(user);
       
       if (user.uid && user.emailVerified)
-        this.navCtrl.setRoot(HomePage);
+        this.navCtrl.setRoot('HomePage');
 
       if (user.uid && !user.emailVerified) {
         let msg = this.modal.create(VerifyAccountComponent);

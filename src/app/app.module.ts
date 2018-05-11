@@ -9,7 +9,6 @@ import { AdMobFree } from '@ionic-native/admob-free';
 // import { AngularFireModule } from 'angularfire2';
 
 import { MyApp } from './app.component';
-import { HomePage } from '../pages/home/home';
 import { StockPage } from '../pages/stock/stock';
 import { LoginPage } from '../pages/login/login';
 import { SignUpPage } from '../pages/sign-up/sign-up';
@@ -37,7 +36,6 @@ firebase.initializeApp(config);
 @NgModule({
   declarations: [
     MyApp,
-    HomePage,
     StockPage,
     LoginPage,
     SignUpPage, 
@@ -58,7 +56,6 @@ firebase.initializeApp(config);
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage,
     StockPage,
     LoginPage,
     SignUpPage,

@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { NavController, PopoverController, Platform } from 'ionic-angular';
+import { NavController, PopoverController, Platform, IonicPage } from 'ionic-angular';
 import { StocksProvider } from '../../providers/stocks/stocks';
 import { StockPage } from '../stock/stock';
 import { MenuComponent } from '../../components/menu/menu';
 import { AdMobFree, AdMobFreeBannerConfig } from '@ionic-native/admob-free';
 
-
+@IonicPage()
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -26,23 +26,22 @@ export class HomePage {
   ionViewDidLoad = () => {
     console.log(this.platform);
     this.view = 'trending';
+    this.stockProvider.listStocks().subscribe(async(res: any[]) => {
+      console.log(res);
+      this.stockList = await res;
+    });
+
+    this.stockProvider.getWatching().then(async(res: any[]) => {
+      console.log(res);
+      this.watchingList = await res;
+    });
 
 
 
   }
 
   ionViewDidEnter = () => {
-    this.stockProvider.listStocks().subscribe((res: any[]) => {
-      console.log(res);
-      this.stockList = res;
-    });
-
-    this.stockProvider.getWatching().then((res: any[]) => {
-      console.log(res);
-      this.watchingList = res;
-    });
-
-   
+      
     if (this.platform.is('cordova')) {
       const bannerConfig: AdMobFreeBannerConfig = {
         overlap: true,        
