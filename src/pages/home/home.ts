@@ -21,30 +21,10 @@ export class HomePage {
     private popoverCtrl: PopoverController,
     private adMob: AdMobFree,
     private platform: Platform) {
-  }
-
-  ionViewDidLoad = () => {
-    console.log(this.platform);
-    this.view = 'trending';
-    this.stockProvider.listStocks().subscribe(async(res: any[]) => {
-      console.log(res);
-      this.stockList = await res;
-    });
-
-    this.stockProvider.getWatching().then(async(res: any[]) => {
-      console.log(res);
-      this.watchingList = await res;
-    });
-
-
-
-  }
-
-  ionViewDidEnter = () => {
       
     if (this.platform.is('cordova')) {
       const bannerConfig: AdMobFreeBannerConfig = {
-        overlap: true,        
+        overlap: true,
         id: "ca-app-pub-6323085540054973/9782149817",
         isTesting: false,
         autoShow: true
@@ -59,6 +39,28 @@ export class HomePage {
           console.log(e);
         });
     }
+  }
+
+  ionViewDidLoad = () => {
+    console.log(this.platform);
+    this.view = 'trending';
+    this.stockProvider.listStocks().subscribe(async (res: any[]) => {
+      console.log(res);
+      this.stockList = await res;
+    });
+
+    this.stockProvider.getWatching().then(async (res: any[]) => {
+      console.log(res);
+      this.watchingList = await res;
+    });
+
+
+
+  }
+
+  ionViewDidEnter = () => {
+
+
   }
 
   viewStock = (str) => {
